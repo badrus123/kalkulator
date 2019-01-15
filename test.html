@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<link rel="stylesheet" type="text/css" href="test.css">
+</head>
+<body>
+	<table>
+		<tr>
+			<td colspan="5" align="right">
+				<p id="current">0</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button onclick="addN(7)">7</button>
+			</td>
+			<td>
+				<button onclick="addN(8)">8</button>
+			</td>
+			<td>
+				<button onclick="addN(9)">9</button>
+			</td>
+			<td>
+				<button class="operator" onclick="addO('+')">+</button>
+			</td>
+			<td>
+				<button id="clear" onclick="reset()">C</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button onclick="addN(4)">4</button>
+			</td>
+			<td>
+				<button onclick="addN(5)">5</button>
+			</td>
+			<td>
+				<button onclick="addN(6)">6</button>
+			</td>
+			<td colspan="2">
+				<button class="operator" onclick="addO('-')" style="width: 100%;">-</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button onclick="addN(1)">1</button>
+			</td>
+			<td>
+				<button onclick="addN(2)">2</button>
+			</td>
+			<td>
+				<button onclick="addN(3)">3</button>
+			</td>
+			<td>
+				<button class="operator" onclick="addO('*')">*</button>
+			</td>
+			<td>
+				<button class="operator" onclick="addO('/')">/</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<button onclick="addN(0)" style="width: 100%;">0</button>
+			</td>
+			<td>
+				<button onclick="addN('.')">.</button>
+			</td>
+			<td colspan="2">
+				<button id="equals" onclick="addO('=')">=</button>
+			</td>
+		</tr>
+	</table>
+	<p id="test">nothing</p>
+</body>
+<script type="text/javascript">
+	var current = [];
+	var numb = "";
+
+	var math = {
+		'*': function (a,b) { return a*b },
+		'/': function (a,b) { return a/b },
+		'+': function (a,b) { return a+b },
+		'-': function (a,b) { return a-b }
+	}
+
+	function addN(a) {
+		numb = numb + a.toString();
+		document.getElementById("current").innerHTML = numb;
+	}
+
+	function addO(a) {
+		var operator = current[current.length - 1];
+		if (operator == "*" || operator == "/" || operator == "+" || operator == "-" || operator == "=") {
+			var x;
+
+			if (operator == "*") {
+				x = math['*'](Number(current[0]), Number(numb));
+			} else if (operator == "/") {
+				x = math['/'](Number(current[0]), Number(numb));
+			} else if (operator == "+") {
+				x = math['+'](Number(current[0]), Number(numb));
+			} else{
+				x = math['-'](Number(current[0]), Number(numb));
+			}
+
+			current = [];
+			current.push(x);
+			current.push(a);
+			numb = "";
+			document.getElementById("current").innerHTML = x.toString();
+			document.getElementById("test").innerHTML = current;
+		} else {
+			current.push(numb);
+			current.push(a);
+			numb = "";
+			document.getElementById("current").innerHTML = 0;
+			document.getElementById("test").innerHTML = current;
+		}
+	}
+
+	function reset() {
+		current = [];
+		numb = "";
+		document.getElementById("current").innerHTML = 0;
+		document.getElementById("test").innerHTML = "nothing";
+	}
+</script>
+</html>
