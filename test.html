@@ -114,7 +114,6 @@
 			current.push(numb);
 			current.push(a);
 			numb = "";
-			document.getElementById("current").innerHTML = 0;
 			document.getElementById("test").innerHTML = current;
 		}
 	}
@@ -122,7 +121,7 @@
 	function reset() {
 		current = [];
 		numb = "";
-		document.getElementById("current").innerHTML = 0;
+		document.getElementById("current").innerHTML = 0; 
 		document.getElementById("test").innerHTML = "nothing";
 	}
 </script>
